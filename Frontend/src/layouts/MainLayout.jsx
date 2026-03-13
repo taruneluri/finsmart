@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
 import { Sidebar } from "../components/Sidebar"
+import { Chatbot } from "../components/Chatbot"
 
 export function MainLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -12,7 +13,7 @@ export function MainLayout() {
     const hideSidebar = noSidebarRoutes.includes(location.pathname)
 
     return (
-        <div className="min-h-screen bg-accent flex flex-col">
+        <div className="min-h-screen bg-accent flex flex-col relative">
             <Navbar onMenuClick={!hideSidebar ? () => setIsSidebarOpen(!isSidebarOpen) : undefined} />
 
             <div className="flex flex-1">
@@ -28,6 +29,8 @@ export function MainLayout() {
                     </div>
                 </main>
             </div>
+            {/* Show Chatbot only on authenticated pages */}
+            {!hideSidebar && <Chatbot />}
         </div>
     )
 }
